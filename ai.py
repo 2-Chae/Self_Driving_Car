@@ -38,4 +38,11 @@ class Network(nn.Module):
         self.fc1 = nn.Linear(input_size, 30) # 5개의 input neurons과 30개의 hidden neurons의 full connection을 생성.
         self.fc2 = nn.Linear(30, nb_action) # 30개의 hidden neurons과 3개의 output neurons사이의 full connection을 생성.
         
-        
+    # performing for propagation
+    # output Q-values (3 possible actions: 1.go left, 2.go straight, 3.go right)
+    def forward(self, state):
+        # activate the hidden neuron (x is the activated hidden neuron) by using ReLU func.
+        # 모양이 대략 state -> x -> q_values 이런식.
+        x = F.relu(self.fc1(state))
+        q_values = self.fc2(x)
+        return q_values
