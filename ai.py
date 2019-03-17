@@ -46,3 +46,16 @@ class Network(nn.Module):
         x = F.relu(self.fc1(state))
         q_values = self.fc2(x)
         return q_values
+    
+# Implementing Experience Replay
+class ReplayMemory(object):
+    
+    # capacity는 100임.
+    def __init__(self, capacity):
+        self.capacity = capacity;  # the maximum number of transitions we want to have in our memory of events.
+        self.memory = []
+        
+    def push(self, event):
+        self.memory.append(event)
+        if len(self.memory) > self.capacity:
+            del self.memory[0]
